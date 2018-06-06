@@ -13,13 +13,13 @@ extension UIView {
 extension UIViewController {
     func removeFromContainer() {
         guard parent != nil else { return }
-        willMove(toParentViewController: nil)
+        willMove(toParent: nil)
         view.removeFromSuperview()
-        removeFromParentViewController()
+        removeFromParent()
     }
 
     func add(to viewController: UIViewController, container: UIView) {
-        viewController.addChildViewController(self)
+        viewController.addChild(self)
         container.add(view: view)
         NSLayoutConstraint.activate([
             view.topAnchor.constraint(equalTo: container.topAnchor),
@@ -32,22 +32,22 @@ extension UIViewController {
 
 public final class ContainerViewController: UIViewController {
     public var didFinishWithImage: (UIImage) -> Void = { _ in }
-    public var didCancel: () -> Void = { _ in }
+    public var didCancel: () -> Void = {  }
     private let filterViewController: SHViewController
     private let cropViewController: CropViewController
     private let containerView = UIView()
     private let filter: UIButton = {
        let b = UIButton()
-        b.setTitleColor(.gray, for: .normal)
-        b.setTitleColor(.black, for: .selected)
-        b.setTitle("Filter", for: .normal)
+        b.setTitleColor(.gray, for: UIControl.State.normal)
+        b.setTitleColor(.black, for: UIControl.State.selected)
+        b.setTitle("Filter", for: UIControl.State.normal)
         return b
     }()
     private let crop: UIButton = {
         let b = UIButton()
-        b.setTitleColor(.gray, for: .normal)
-        b.setTitleColor(.black, for: .selected)
-        b.setTitle("Crop", for: .normal)
+        b.setTitleColor(.gray, for: UIControl.State.normal)
+        b.setTitleColor(.black, for: UIControl.State.selected)
+        b.setTitle("Crop", for: UIControl.State.normal)
         return b
     }()
 
@@ -73,14 +73,14 @@ public final class ContainerViewController: UIViewController {
         view.add(view: topBar)
 
         let next = UIButton()
-        next.setTitleColor(.black, for: .normal)
-        next.setTitle("Next", for: .normal)
-        next.addTarget(self, action: #selector(ContainerViewController.didTapNext), for: .touchUpInside)
+        next.setTitleColor(.black, for: UIControl.State.normal)
+        next.setTitle("Next", for: UIControl.State.normal)
+        next.addTarget(self, action: #selector(ContainerViewController.didTapNext), for: UIControl.Event.touchUpInside)
 
         let back = UIButton()
-        back.setTitleColor(.black, for: .normal)
-        back.setTitle("Back", for: .normal)
-        back.addTarget(self, action: #selector(ContainerViewController.didTapBack), for: .touchUpInside)
+        back.setTitleColor(.black, for: UIControl.State.normal)
+        back.setTitle("Back", for: UIControl.State.normal)
+        back.addTarget(self, action: #selector(ContainerViewController.didTapBack), for: UIControl.Event.touchUpInside)
 
         topBar.add(views: [next, back])
 
@@ -135,11 +135,11 @@ public final class ContainerViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         showFilter()
-        filter.addTarget(self, action: #selector(ContainerViewController.showFilter), for: .touchUpInside)
-        crop.addTarget(self, action: #selector(ContainerViewController.showCrop), for: .touchUpInside)
+        filter.addTarget(self, action: #selector(ContainerViewController.showFilter), for: UIControl.Event.touchUpInside)
+        crop.addTarget(self, action: #selector(ContainerViewController.showCrop), for: UIControl.Event.touchUpInside)
     }
 
-    func showFilter() {
+    @objc func showFilter() {
         if let image = cropViewController.croppedImage {
             filterViewController.image = image
         }
@@ -149,14 +149,14 @@ public final class ContainerViewController: UIViewController {
         crop.isSelected = false
     }
 
-    func showCrop() {
+    @objc func showCrop() {
         filterViewController.removeFromContainer()
         cropViewController.add(to: self, container: containerView)
         filter.isSelected = false
         crop.isSelected = true
     }
 
-    func didTapNext() {
+    @objc func didTapNext() {
         func sendImageFromFilter() {
             guard let image = filterViewController.imageView?.image else {
                 assertionFailure()
@@ -173,7 +173,7 @@ public final class ContainerViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
-    func didTapBack() {
+    @objc func didTapBack() {
         didCancel()
     }
 }
