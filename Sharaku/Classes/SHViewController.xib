@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SHViewController">
+            <connections>
+                <outlet property="collectionView" destination="Szh-NV-86B" id="oG9-bX-SyQ"/>
+                <outlet property="imageView" destination="dv8-Gc-a6m" id="WOS-dC-IRh"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Szh-NV-86B">
+                    <rect key="frame" x="0.0" y="475" width="375" height="184"/>
+                    <color key="backgroundColor" red="0.16078431372549018" green="0.16078431372549018" blue="0.16078431372549018" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="184" id="QAs-Y2-ZWk"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="A67-EE-rnS">
+                        <size key="itemSize" width="120" height="164"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="uBa-Gh-bYS"/>
+                        <outlet property="delegate" destination="-1" id="RKe-oF-ANw"/>
+                    </connections>
+                </collectionView>
+                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dv8-Gc-a6m">
+                    <rect key="frame" x="-1" y="0.0" width="375" height="475"/>
+                    <gestureRecognizers/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="2ch-Qc-nFL" appends="YES" id="8T0-ai-Z7B"/>
+                        <outletCollection property="gestureRecognizers" destination="as3-Bz-yWf" appends="YES" id="nw2-7e-CKb"/>
+                    </connections>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="0.16078431372549018" green="0.16078431372549018" blue="0.16078431372549018" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Szh-NV-86B" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottomMargin" id="63F-g0-9zm"/>
+                <constraint firstItem="Szh-NV-86B" firstAttribute="top" secondItem="dv8-Gc-a6m" secondAttribute="bottom" id="FMw-mN-ezj"/>
+                <constraint firstItem="Szh-NV-86B" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Hm9-dq-XrT"/>
+                <constraint firstItem="dv8-Gc-a6m" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Jl7-t6-I3C"/>
+                <constraint firstAttribute="trailing" secondItem="dv8-Gc-a6m" secondAttribute="trailing" constant="1" id="TsZ-uO-ibh"/>
+                <constraint firstItem="dv8-Gc-a6m" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="-1" id="aXK-sJ-s30"/>
+                <constraint firstAttribute="trailing" secondItem="Szh-NV-86B" secondAttribute="trailing" id="c8e-WB-nm4"/>
+            </constraints>
+        </view>
+        <swipeGestureRecognizer direction="left" id="2ch-Qc-nFL">
+            <connections>
+                <action selector="imageViewDidSwipeLeft" destination="-1" id="W81-BY-jeP"/>
+            </connections>
+        </swipeGestureRecognizer>
+        <swipeGestureRecognizer direction="right" id="as3-Bz-yWf">
+            <connections>
+                <action selector="imageViewDidSwipeRight" destination="-1" id="crw-oz-AXE"/>
+            </connections>
+        </swipeGestureRecognizer>
+    </objects>
+</document>
